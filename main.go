@@ -6,12 +6,15 @@ import (
 )
 
 func main() {
-	k := "keyword"
+	k := "Joes Key"
+	fmt.Println("Keyword: " + k)
 	s := "{'payload':'hashLab'}"
+	fmt.Println("Message sent to the receiver: " + s)
 	p := k + s
+	fmt.Println("Key+Payload: " + p)
 	h := sha256.New()
 	h.Write([]byte(p))
 	bs := h.Sum(nil)
-	fmt.Println(s)
-	fmt.Printf("%x\n", bs)
+	fmt.Printf("Hash value sent to the receiver: %x\n", bs)
+
 }
