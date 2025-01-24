@@ -1,20 +1,29 @@
 package main
 
 import (
+	"crypto/hmac"
 	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 )
 
 func main() {
-	k := "Joes Key"
-	fmt.Println("Keyword: " + k)
-	s := "{'payload':'hashLab'}"
-	fmt.Println("Message sent to the receiver: " + s)
-	p := k + s
-	fmt.Println("Key+Payload: " + p)
-	h := sha256.New()
-	h.Write([]byte(p))
-	bs := h.Sum(nil)
-	fmt.Printf("Hash value sent to the receiver: %x\n", bs)
+	// Key and message
+	key := []byte("cryptii")
+	message := []byte("Hello")
 
+	// Create a new HMAC using SHA-256
+	h := hmac.New(sha256.New, key)
+
+	// Write the message to the HMAC
+	h.Write(message)
+
+	// Compute the HMAC signature
+	signature := h.Sum(nil)
+
+	// Convert the HMAC to a hexadecimal string for display
+	hmacHex := hex.EncodeToString(signature)
+
+	// Print the HMAC
+	fmt.Println("HMAC (SHA-256):", hmacHex)
 }
